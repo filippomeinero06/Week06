@@ -14,7 +14,7 @@ def main():
         print("Connected to database")
 
         # Mi faccio dare dalla connessione un cursore
-        my_cursor = conn.cursor() # Creo il cursore
+        #my_cursor = conn.cursor() # Creo il cursore
         cursore_dizionario = conn.cursor(dictionary=True)
 
         # Scrivo la query
@@ -27,16 +27,20 @@ def main():
         #           FROM S
         #           WHERE CITY = '{citta}' """
 
+        # PREPARED QUERY / PREPARED STATEMENT
         query = f"""SELECT `S#`, `STATUS`
                     FROM S
-                    WHERE CITY = '%s' """
-
-
+                    WHERE CITY = %s AND
+                          STATUS > %s"""
 
 
         # La eseguo attraverso il cursore
         #my_cursor.execute(query) # Eseguo la query
-        cursore_dizionario.execute(query, (citta,))
+        #cursore_dizionario.execute(query)
+
+        # Tira fuori tutti i fornitori con città quella passata come parametro e status > 15
+        cursore_dizionario.execute(query, (citta, 15))
+
 
         # Il cursore è un container di Python, quindi posso iterare su di esso (for, while, ...)
         """
