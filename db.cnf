@@ -3,4 +3,4 @@ user=root
 password=
 host=localhost
 Port=3306
-database=citybke
+database=citibike
